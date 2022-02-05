@@ -91,32 +91,25 @@ const deleteItm = (i_id, i_country) => {
     placeIdx = idx;
     return id === i_id;
   });
-  console.log("targetPlace", targetPlace);
+ // console.log("targetPlace", targetPlace);
   const checked = document.getElementById(`${i_id}`).checked;
-
-  if (checked) {
-    console.log("item checked");
-    let newObj = {
+ let newObj = {
       id: targetPlace.id,
       name: targetPlace.name,
-      visited: "yes",
+      visited: checked?"yes":"no"
       gMapLink: "https://maps.google.com",
     };
+  
+//   if (checked) {
+ 
+//    newObj.visited="yes"
 
+//   } else {
+//     newObj.visited="no"
+//   }
+  
     planA[countryIdx].places.splice(placeIdx, 1, newObj);
 
     // console.table(planA);
     localStorage.setItem("Plan", JSON.stringify(planA));
-  } else {
-    console.log("item unchecked");
-    let newObj = {
-      id: targetPlace.id,
-      name: targetPlace.name,
-      visited: "no",
-      gMapLink: "https://maps.google.com",
-    };
-
-    planA[countryIdx].places.splice(placeIdx, 1, newObj);
-    localStorage.setItem("Plan", JSON.stringify(planA));
-  }
 };
