@@ -14,16 +14,21 @@ const countries = [
 const countryDropDown = document.getElementById("dropdown-menu");
 let planA;
 window.addEventListener("DOMContentLoaded", (event) => {
-  countryDropDown.innerHTML = countries
-    .map((country) => {
-      return `   <option value="${country}">${country}</option>`;
-    })
-    .join("");
+  try {
+    console.log("point 1");
+    countryDropDown.innerHTML = countries
+      .map((country) => {
+        return `   <option value="${country}">${country}</option>`;
+      })
+      .join("");
+    console.log("point 2");
 
-  // displayCityNames;
-  planA = JSON.parse(localStorage.getItem("Plan")) || Plan;
-  console.log("PLan=>", planA);
-  displayCityNames(countries[0]);
+    planA = JSON.parse(localStorage.getItem("Plan")) || Plan; //Plan is default plan from plan.js file
+    console.log("PLan=>", planA);
+    displayCityNames(countries[0]);
+  } catch (error) {
+    console.log(error);
+  }
 });
 
 const displayCityNames = (inputCountry) => {
@@ -91,25 +96,25 @@ const deleteItm = (i_id, i_country) => {
     placeIdx = idx;
     return id === i_id;
   });
- // console.log("targetPlace", targetPlace);
+  // console.log("targetPlace", targetPlace);
   const checked = document.getElementById(`${i_id}`).checked;
- let newObj = {
-      id: targetPlace.id,
-      name: targetPlace.name,
-      visited: checked?"yes":"no"
-      gMapLink: "https://maps.google.com",
-    };
-  
-//   if (checked) {
- 
-//    newObj.visited="yes"
+  let newObj = {
+    id: targetPlace.id,
+    name: targetPlace.name,
+    visited: checked ? "yes" : "no",
+    gMapLink: "https://maps.google.com",
+  };
 
-//   } else {
-//     newObj.visited="no"
-//   }
-  
-    planA[countryIdx].places.splice(placeIdx, 1, newObj);
+  //   if (checked) {
 
-    // console.table(planA);
-    localStorage.setItem("Plan", JSON.stringify(planA));
+  //    newObj.visited="yes"
+
+  //   } else {
+  //     newObj.visited="no"
+  //   }
+
+  planA[countryIdx].places.splice(placeIdx, 1, newObj);
+
+  // console.table(planA);
+  localStorage.setItem("Plan", JSON.stringify(planA));
 };
