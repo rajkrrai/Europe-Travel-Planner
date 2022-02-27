@@ -102,7 +102,7 @@ const deleteItm = (i_id, i_country) => {
 
   planA[countryIdx].places.splice(placeIdx, 1, newObj);
 
-  console.table(planA);
+  // console.table(planA);
   localStorage.setItem("Plan", JSON.stringify(planA));
 };
 
