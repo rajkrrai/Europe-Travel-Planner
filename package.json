@@ -1,0 +1,22 @@
+{
+  "name": "europe-travel-planner",
+  "version": "1.0.0",
+  "description": "- Choose a country you want to visit\r - click on any place to open the google map\r - check the checkbox if you have visited the place\r https://rajkrrai.github.io/Europe-Travel-Planner/",
+  "main": "Plan.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d build"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/rajkrrai/Europe-Travel-Planner.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/rajkrrai/Europe-Travel-Planner/issues"
+  },
+  "homepage": "https://github.com/rajkrrai/Europe-Travel-Planner"
+}

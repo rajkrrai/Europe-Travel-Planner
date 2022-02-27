@@ -11,17 +11,16 @@ const countries = [
   "Greece",
 ];
 
-const countryDropDown = document.getElementById("dropdown-menu");
+const countryDropDown = document.getElementById("countryDropDown");
+const mynotes = document.getElementById("impnotes");
 let planA;
 window.addEventListener("DOMContentLoaded", (event) => {
   try {
-    console.log("point 1");
     countryDropDown.innerHTML = countries
       .map((country) => {
         return `   <option value="${country}">${country}</option>`;
       })
       .join("");
-    console.log("point 2");
 
     planA = JSON.parse(localStorage.getItem("Plan")) || Plan; //Plan is default plan from plan.js file
     console.log("PLan=>", planA);
@@ -32,7 +31,7 @@ window.addEventListener("DOMContentLoaded", (event) => {
 });
 
 const displayCityNames = (inputCountry) => {
-  // console.log(inputCountry);
+  console.log(inputCountry);
   const cardTitle = document.getElementById("card-title");
   const cityList = document.getElementById("cityList");
   const flag = document.getElementById("flag");
@@ -40,7 +39,7 @@ const displayCityNames = (inputCountry) => {
   let result = planA.find(({ country }) => {
     return country === inputCountry;
   });
-
+  console.log(result);
   if (result === undefined) {
     cardTitle.innerText = `0 Places`;
     cityList.innerHTML = "";
@@ -48,6 +47,7 @@ const displayCityNames = (inputCountry) => {
   }
   //change the flag dynamically
   flag.src = `https://flagcdn.com/${result.countryCode}.svg`;
+
   //populate the places
   cardTitle.innerText = `${result.places.length} Places`;
 
@@ -73,30 +73,25 @@ const displayCityNames = (inputCountry) => {
             </li>`;
     })
     .join("");
+  mynotes.value = result.notes || "";
 };
 
 countryDropDown.addEventListener("change", (e) => {
-  // console.log("select country is:", e.target.value);
-
   displayCityNames(e.target.value);
 });
 
 const deleteItm = (i_id, i_country) => {
   let countryIdx, placeIdx;
-  // console.log("checked id", i_id, i_country);
-  Plan;
   let resultObj = planA.find(({ country }, idx) => {
-    // console.log("targetPlace", idx);
     countryIdx = idx;
     return country === i_country;
   });
-  // console.log("resultObj", resultObj);
+
   let targetPlace = resultObj.places.find(({ id }, idx) => {
-    console.log("targetPlace index", idx);
     placeIdx = idx;
     return id === i_id;
   });
-  // console.log("targetPlace", targetPlace);
+
   const checked = document.getElementById(`${i_id}`).checked;
   let newObj = {
     id: targetPlace.id,
@@ -105,16 +100,24 @@ const deleteItm = (i_id, i_country) => {
     gMapLink: "https://maps.google.com",
   };
 
-  //   if (checked) {
-
-  //    newObj.visited="yes"
-
-  //   } else {
-  //     newObj.visited="no"
-  //   }
-
   planA[countryIdx].places.splice(placeIdx, 1, newObj);
 
-  // console.table(planA);
+  console.table(planA);
   localStorage.setItem("Plan", JSON.stringify(planA));
 };
+
+document.getElementById("btn-save").addEventListener("click", (e) => {
+  let notes = document.getElementById("impnotes").value;
+  console.log(notes);
+  //get obj from localstorage
+  let myplan = JSON.parse(localStorage.getItem("Plan")) || Plan;
+
+  //find country obj and append the notes to save
+  let resultObj = myplan.find(({ country }) => {
+    return (country = countryDropDown.value);
+  });
+
+  resultObj.notes = notes;
+  localStorage.setItem("Plan", JSON.stringify(myplan));
+  console.log(myplan);
+});

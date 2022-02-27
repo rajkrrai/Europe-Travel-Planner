@@ -40,8 +40,6 @@ input[type="checkbox"]:checked a {
   color: red;
 }
 
-element.style {
-}
 .list-group-flush > .list-group-item {
   border-width: 0 0 1px;
 }
@@ -52,4 +50,7 @@ element.style {
 .list-group-item {
   border: none;
   padding: 0.1rem 1rem;
+}
+textarea {
+  resize: none;
 }
